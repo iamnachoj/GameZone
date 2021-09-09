@@ -1,7 +1,14 @@
 import React, {useState} from 'react';
 import * as Font from 'expo-font';
-import Home from './screens/home';
 import AppLoading from 'expo-app-loading';
+
+//components
+import Home from './screens/home';
+import ReviewDetails from './screens/reviewDetails';
+
+// navigator
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
 
 const getFonts = () => {
   return (
@@ -13,10 +20,17 @@ const getFonts = () => {
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false)
-  
+  const Stack = createStackNavigator();
+
   if(fontsLoaded){
     return (
-      <Home/>
+      <NavigationContainer>
+      <Stack.Navigator>
+        {/* it automatically adds a navigation prop */}
+        <Stack.Screen name='Home' component={Home}/> 
+        <Stack.Screen name='Reviews' component={ReviewDetails}/>
+      </Stack.Navigator>
+      </NavigationContainer>
     );
   } else {
     return (
